@@ -11,7 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./tm4c123gh6pm_startup_ccs.obj" \
-"./souce/HCSR04.obj" \
+"./souce/main.obj" \
 "C:/ti/TivaWare_C_Series-2.2.0.295/driverlib/ccs/Debug/driverlib.lib" \
 "../tm4c123gh6pm.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -158,8 +158,8 @@ all: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "tm4c123gh6pm_startup_ccs.obj" "souce\HCSR04.obj" 
-	-$(RM) "tm4c123gh6pm_startup_ccs.d" "souce\HCSR04.d" 
+	-$(RM) "tm4c123gh6pm_startup_ccs.obj" "souce\main.obj" 
+	-$(RM) "tm4c123gh6pm_startup_ccs.d" "souce\main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

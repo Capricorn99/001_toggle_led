@@ -97,7 +97,7 @@
 						</tool>
 					</fileInfo>
 					<sourceEntries>
-						<entry excluding="souce/007_state_led.c|souce/test_code_1.c|souce/006_uart_interrupt.c|souce/005_uart.c|souce/001_toggle_led.c|souce/003_systick_delay.c|souce/004_systick_interrupt.c|souce/002_led_button.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="souce/008_timer_it.c|souce/HCSR04.c|souce/009_gpio_interrupt.c|souce/001_toggle_led.c|souce/003_systick_delay.c|souce/007_state_led.c|souce/test_code_1.c|souce/006_uart_interrupt.c|souce/005_uart.c|souce/004_systick_interrupt.c|souce/002_led_button.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

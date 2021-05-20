@@ -59,21 +59,32 @@ int main(void){
     // Enable the UART0
     UARTEnable(UART0_BASE);
 
-    // Set the PA3 port as Output. Trigger Pin
-    GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_3);
+    // Set the PA4 port as Output. Trigger Pin
+    GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_4);
+
+
+    GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_4, 0x00);
     // Set the PA2 port as Input with a weak Pull-down. Echo Pin
     GPIOPinTypeGPIOInput(GPIO_PORTA_BASE, GPIO_PIN_2);
-    GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PIN_2, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPD);
+    GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PIN_2, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
+
 
     // Configure and enable the Interrupt on both edges for PA2. Echo Pin
+    IntRegister(INT_GPIOA, PortAIntHandler);
     IntEnable(INT_GPIOA);
+
+
     GPIOIntTypeSet(GPIO_PORTA_BASE, GPIO_PIN_2, GPIO_BOTH_EDGES);
     GPIOIntEnable(GPIO_PORTA_BASE, GPIO_INT_PIN_2);
 
     // Configure Timer0 to run in one-shot down-count mode
     TimerConfigure(TIMER0_BASE, TIMER_CFG_ONE_SHOT);
+
     // Enable the Interrupt specific vector associated with Timer0A
+    IntRegister(INT_TIMER0A, Timer0IntHandler);
     IntEnable(INT_TIMER0A);
+
+
     // Enables a specific event within the timer to generate an interrupt
     TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
 
@@ -90,8 +101,9 @@ int main(void){
         if (boolTrigCondition){
             // Load the Timer with value for generating a  delay of 10 uS.
             TimerLoadSet(TIMER0_BASE, TIMER_A, (SysCtlClockGet() / 100000) -1);
-            // Make the Trigger Pin (PA3) High
-            GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_3, GPIO_PIN_3);
+
+            // Make the Trigger Pin (PA4) High
+            GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_4, GPIO_PIN_4);
             // Enable the Timer0 to cause an interrupt when timeout occurs
             TimerEnable(TIMER0_BASE, TIMER_A);
             // Disable the condition for Trigger Pin Switching
@@ -108,7 +120,8 @@ void Timer0IntHandler(void){
     // Disable the timer
     TimerDisable(TIMER0_BASE, TIMER_A);
     // Make the Trigger Pin (PA3) Low
-    GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_3, 0x00);
+    GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_4, 0x00);
+
 }
 
 void PortAIntHandler(void){
@@ -141,5 +154,4 @@ void PortAIntHandler(void){
         // Enable condition for Trigger Pulse
         boolTrigCondition = 1;
     }
-
 }
